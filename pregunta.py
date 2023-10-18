@@ -9,13 +9,13 @@ correctamente. Tenga en cuenta datos faltantes y duplicados.
 import pandas as pd
 
 def clean_data():
-    
+
     df = pd.read_csv("solicitudes_credito.csv", sep=";",index_col=0)
+    
     df.reset_index(inplace=True,drop=True)
     df.dropna(inplace=True)
     
     df['fecha_de_beneficio'] = pd.to_datetime(df['fecha_de_beneficio'],dayfirst=True)
-
     df = df.apply(lambda x: x.str.lower() if x.dtype == 'object' else x)
     df['idea_negocio'] = df['idea_negocio'].str.replace('_',' ').str.replace('-',' ').str.strip()
     df['barrio'] = df['barrio'].str.replace('_','-').str.replace('-',' ')
